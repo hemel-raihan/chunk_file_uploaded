@@ -14,12 +14,11 @@
 
     <button id="browseFile">Browsn File</button>
 
-    <div class="progress" style="...">
+    <div class="progress" style="display: none">
         <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" style="...">
-            75%
+            00%
         </div>
     </div>
-    <div id="myDiv" >Some Content</div>
 
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
@@ -28,16 +27,13 @@
     <script src="https://cdn.jsdelivr.net/npm/resumablejs@1.1.0/resumable.min.js"></script>
 
     <script>
-        $('#myDiv').click(function(e) {  
-    alert(1);
-});
         let browseFile = $('#browseFile');
 
         let resumable = new Resumable({
-            target: `{{route('video.upload')}}`,
+            target: '{{route('video.upload')}}',
             query:{_token:'{{ csrf_token() }}'},
             fileType: ['mp4'],
-            chunkSize: 10*1024*1024,
+            //chunkSize: 10*1024*1024,
             headers: {
                 'Accept': 'application/json'
             },
@@ -58,7 +54,6 @@
 
         resumable.on('fileSuccess', function(file, response){
             $('#videoPreview').attr('src','video src');
-            $('.card-footer'.show())
         })
         resumable.on('fileError', function(file, response){
             console.log(response)
